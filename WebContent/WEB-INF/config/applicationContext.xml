@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.0.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+
+	<!-- 1.配置数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    
+    <!-- 2.配置SessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource"/>
+	    <property name="mappingResources">
+	      <list>
+	        <value>com/ibmetp/entity/Hot_user.hbm.xml</value>
+	        <value>com/ibmetp/sql/Sql.hbm.xml</value>
+	      </list>
+	    </property>
+	    <property name="hibernateProperties">
+	    	<props>
+	    		<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+	    		<prop key="hibernate.show_sql">true</prop>
+	    	</props>
+	    </property>
+	    
+  	</bean>
+  	
+  	<!-- 3.配置事务管理器 -->
+  	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	
+  	<!-- 4.配置通知 -->
+  	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	    <tx:attributes>
+	      <tx:method name="insert*" propagation="REQUIRED" isolation="SERIALIZABLE"/>
+	      <tx:method name="delete*" propagation="REQUIRED" isolation="SERIALIZABLE"/>
+	      <tx:method name="update*" propagation="REQUIRED" isolation="SERIALIZABLE"/>
+	      <tx:method name="*" propagation="SUPPORTS" read-only="false"/>
+	    </tx:attributes>
+  	</tx:advice>
+  	
+  	<!-- 5.配置事务切面 -->
+  	<aop:config>
+  		<aop:advisor pointcut="execution(* com.ibmetp.dao.impl.*.*(..))" advice-ref="txAdvice"/>
+	</aop:config>
+    
+    <bean id="hot_userDao" class="com.ibmetp.dao.impl.Hot_userDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    <bean id="hot_userService" class="com.ibmetp.service.impl.Hot_userServiceImpl">
+    	<property name="hot_userDao" ref="hot_userDao"></property>
+    </bean>
+    
+    <bean id="applyAction" class="com.ibmetp.action.ApplyAction">
+    	<property name="hot_userService" ref="hot_userService"></property>
+    </bean>
+    
+    <bean id="Manager" class="com.ibmetp.action.PersonManagerAction">
+       <property name="service" ref="hot_userService"></property>
+    </bean>
+    
+    
+    
+</beans>

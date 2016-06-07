@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ibmetp.entity">
+
+    <class name="Hot_user" table="hot_user">
+        <id name="user_code">
+            <generator class="assigned"/>
+        </id>
+        <property name="user_name" length="20"/>
+        <property name="id_num" type="java.lang.Long"/>
+        <property name="sex" length="12"/>
+        <property name="telephone_no" type="java.lang.Long"/>
+        <property name="user_adress" length="120"/>
+        <property name="room_code" length="12"/>
+        <property name="join_date" type="java.sql.Date"/>
+        
+    </class>
+    
+    <class name="Hot_village" table="hot_village">
+        <id name="code">
+            <generator class="assigned"/>
+        </id>
+        
+        <property name="id" type="java.lang.Integer" />
+        <property name="name" length="30" />
+        <property name="state" length="10"></property>
+        
+    </class>
+    
+    <class name="Hot_village_detail" table="hot_village_detail">
+        <id name="room_code">
+            <generator class="assigned"/>
+        </id>
+        
+        <property name="village_code"></property>
+        <property name="house_no" type="java.lang.Integer"></property>
+        <property name="unit_no" type="java.lang.Integer"></property>
+        <property name="floor_no" type="java.lang.Integer"></property>
+        <property name="room_no" type="java.lang.Integer"></property>
+        <property name="state"></property>
+        <property name="area" type="java.lang.Integer"></property>
+        
+    </class>
+    
+    <class name="Hot_cost" table="hot_cost">
+        <id name="cost_code">
+            <generator class="assigned"/>
+        </id>
+        
+        <property name="room_code"></property>
+        <property name="amount" type="java.lang.Double"></property>
+        <property name="u_flow" type="java.lang.Double"></property>
+        <property name="update_date" type="java.sql.Date"></property>
+        <property name="u_area" type="java.lang.Double"></property>
+        <property name="c_equipment" type="java.lang.Double"></property>
+        <property name="c_man" type="java.lang.Double"></property>
+        <property name="c_other" type="java.lang.Double"></property>
+        <property name="heating_cost_type"></property>
+        
+    </class>
+    
+    
+    <class name="Hot_permission" table="hot_permission">
+        <id name="account">
+            <generator class="assigned"/>
+        </id>      
+        <property name="password"></property>
+        <property name="type"></property>       
+    </class>
+    
+    <class name="Hot_employee" table="hot_employee">
+        <id name="empno">
+            <generator class="assigned"/>
+        </id>      
+        <property name="ename"></property>
+        <property name="position"></property>  
+        <property name="task"></property> 
+        <property name="job"></property> 
+        <property name="comm1"></property> 
+        <property name="comm2"></property>      
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+.quickAll{
+  position:absolute;
+  left:400px;
+}
+
+#quickEnter6{
+  position:absolute;
+  right:0.1px;
+}
+
+.quickEnter{
+  display:inline-block;
+  padding:20px;
+  margin:20px;
+}

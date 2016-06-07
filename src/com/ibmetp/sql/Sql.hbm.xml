@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<!--  
+    <query name="select_emps">
+   		select new map(empno as empno,ename as ename,sal as sal,comm as comm,job as job,hiredate as hiredate)from Emp//此处应该与类名一样首字母大写
+   </query>
+   
+   <query name="select_emp_by_empno">
+   		select new map(empno as empno,ename as ename,sal as sal,comm as comm,job as job,hiredate as hiredate)from Emp where empno=?
+   </query>
+-->
+<query name="selectHot_user">
+    
+    select new map(user_name as user_name,id_num as id_num,sex as sex,telephone_no as telephone_no,user_adress as user_adress,room_code as room_code,user_code as user_code,join_date as join_date)from Hot_user where id_num=?
+</query>
+
+
+<query name="selectHot_cost">
+    
+    select new map(c.cost_code as cost_code,c.room_code as room_code,c.amount as amount,c.u_flow as u_flow,c.update_date as update_date,c.u_area as u_area,c.c_equipment as c_equipment,c.c_man as c_man,c.c_other as c_other,c.heating_cost_type as heating_cost_type,u.user_name as user_name)from Hot_cost c,Hot_user u 
+    where c.room_code=u.room_code
+    and
+    u.id_num=?
+</query>
+
+
+
+
+
+<query name="selectHot_costAll">
+    
+    select new map(c.cost_code as cost_code,c.room_code as room_code,c.amount as amount,c.u_flow as u_flow,c.update_date as update_date,c.u_area as u_area,c.c_equipment as c_equipment,c.c_man as c_man,c.c_other as c_other,c.heating_cost_type as heating_cost_type,u.user_name as user_name,rownum as rownum)from Hot_cost c,Hot_user u 
+    where u.room_code=c.room_code
+    
+</query>
+
+<query name="selectHot_costAllUsername">   
+    select new map(c.cost_code as cost_code,c.room_code as room_code,c.amount as amount,c.u_flow as u_flow,c.update_date as update_date,c.u_area as u_area,c.c_equipment as c_equipment,c.c_man as c_man,c.c_other as c_other,c.heating_cost_type as heating_cost_type,u.user_name as user_name,rownum as rownum)from Hot_cost c,Hot_user u where u.room_code=c.room_code and u.user_name like ?  
+</query>
+
+<query name="selectHot_costAllBTN">
+    
+    select new map(c.cost_code as cost_code,c.room_code as room_code,c.amount as amount,c.u_flow as u_flow,c.update_date as update_date,c.u_area as u_area,c.c_equipment as c_equipment,c.c_man as c_man,c.c_other as c_other,c.heating_cost_type as heating_cost_type,u.user_name as user_name,rownum as rownum)
+    from Hot_cost c,Hot_user u 
+    where u.room_code=c.room_code
+    and c.amount&lt;?
+</query>
+
+
+<query name="selectHot_village">
+    
+    select new map(h.code as code,h.id as id,h.name as name,
+    h.state as state)from Hot_village h order by h.code
+</query>
+
+
+<query name="selectHot_userAll">
+    
+    select new map(h.user_name as user_name,h.id_num as id_num,h.telephone_no as telephone_no,h.join_date as join_date,hv.name as name,hd.house_no as house_no,hd.unit_no as unit_no,hd.floor_no as floor_no,hd.room_no as room_no,hd.state as state,hd.area as area,c.amount as amount,c.heating_cost_type as heating_cost_type,c.update_date as update_date,rownum as rownum)from
+     Hot_user h,Hot_cost c,Hot_village_detail hd,Hot_village hv 
+     where h.room_code = c.room_code 
+     and
+     h.room_code = hd.room_code 
+     and
+     hd.village_code = hv.code 
+     order by h.join_date desc
+</query>
+
+
+<query name="selectHot_village_sosuo">
+    
+    select new map(h.code as code,h.id as id,h.name as name,
+    h.state as state)from Hot_village h where h.name=?
+</query>
+
+
+<query name="selectHot_userAll_sosuo">
+    
+    select new map(h.user_name as user_name,h.id_num as id_num,h.telephone_no as telephone_no,h.join_date as join_date,hv.name as name,hd.house_no as house_no,hd.unit_no as unit_no,hd.floor_no as floor_no,hd.room_no as room_no,hd.state as state,hd.area as area,c.amount as amount,c.heating_cost_type as heating_cost_type,c.update_date as update_date)from
+     Hot_user h,Hot_cost c,Hot_village_detail hd,Hot_village hv 
+     where h.room_code = c.room_code 
+     and
+     h.room_code = hd.room_code 
+     and
+     hd.village_code = hv.code 
+     and
+     h.user_name=?
+</query>
+
+
+<query name="selectHot_userAll_state">
+    
+    select new map(h.user_name as user_name,h.id_num as id_num,h.telephone_no as telephone_no,h.join_date as join_date,hv.name as name,hd.house_no as house_no,hd.unit_no as unit_no,hd.floor_no as floor_no,hd.room_no as room_no,hd.state as state,hd.area as area,c.amount as amount,c.heating_cost_type as heating_cost_type,c.update_date as update_date)from
+     Hot_user h,Hot_cost c,Hot_village_detail hd,Hot_village hv 
+     where h.room_code = c.room_code 
+     and
+     h.room_code = hd.room_code 
+     and
+     hd.village_code = hv.code 
+     and
+     hd.state=?
+</query>
+
+
+<query name="selectHot_permission">
+    
+    select new map(account as account,password as password,type as type)from
+     Hot_permission
+    
+</query>
+
+<query name="selectHot_permission_login">
+    
+    select new map(account as account,password as password,type as type)from
+     Hot_permission
+     where account=?
+    
+</query>
+
+
+<query name="selectHot_employee_emp">  
+    select new map(empno as empno,ename as ename,position as position,task as task,job as job,comm1 as comm1,comm2 as comm2,rownum as rownum)from
+     Hot_employee
+     where job='业务员'    
+</query>
+
+<query name="selectHot_employee_engineer">  
+    select new map(empno as empno,ename as ename,position as position,task as task,job as job,comm1 as comm1,comm2 as comm2,rownum as rownum)from
+     Hot_employee
+     where job='工程师'    
+</query>
+
+
+</hibernate-mapping>

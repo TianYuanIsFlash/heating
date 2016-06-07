@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>居民供暖管理系统</title>
+		<meta charset="utf-8">
+		<link href="css/style.css" rel='stylesheet' type='text/css' />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--title前logo-->
+        <link rel="icon" href="img/hotIcon.png" type="image/x-icon"/>
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<script type="text/javascript">
+		 function foget(){
+			 alert("联系管理员13821933167！");
+		 }
+		</script>
+</head>
+<body>
+	 <!-----start-main---->
+	 <div class="main">
+		<div class="login-form">
+			<h1>居民供暖管理系统</h1>
+					<div class="head">
+						<img src="images/user.png" alt=""/>
+					</div>
+				<form action="loginAction" method="post">
+						<input type="text" class="text" value="请输入用户名：" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '请输入用户名：';}" name="user">
+						<input type="password" value="请输入密码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '请输入密码';}" name="pwd">
+						
+						<div class="submit">
+							<input type="submit" onclick="myFunction()" value="登录" >
+					</div>
+						
+					<p id="pwdFoget" onclick="foget()"><a href="#">忘记密码？</a></p>
+				</form>
+			</div>
+			<!--//End-login-form-->
+			 <!-----start-copyright---->
+   					<div class="copy-right">
+						<p>技术支持：13821933167</p> 
+					</div>
+				<!-----//end-copyright---->
+		</div>
+			 <!-----//end-main---->
+<!--		 		
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+-->
+</body>
+</html>

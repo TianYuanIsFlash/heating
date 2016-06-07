@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <!--默认编码-->
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.devMode" value="false" />
+
+    <package name="default" namespace="/" extends="struts-default">
+
+		<global-results>
+			<result name="error" type="redirect">error.jsp</result>
+		</global-results>
+
+        <action name="*Action" class="applyAction" method="{1}">
+        	
+        	<result name="success">contract.jsp</result>
+        	<result name="quitSuccess" >quit.jsp</result>
+        	<result name="admin">quickdoor.jsp</result>
+        	<result name="noadmin">usuaSee.jsp</result>
+        	<result name="pagereportDetail">reportDetail.jsp</result>
+        	
+        	<result name="costAll">costAll.jsp</result>
+        	
+        	<result name="toDistribution">distribution.jsp</result>
+        	
+        	<result name="costAllBTNto">arrearsCharge.jsp</result>
+        	<result name="excelChargeAll">excelChargeAll.jsp</result>
+        	
+        	<result name="excelChargeArrears">excelChargeArrears.jsp</result>
+        	
+        	<result name="excelUserDetail">excelUserDetail.jsp</result>
+        	
+        	<result name="picCharge">picCharge.jsp</result>
+        </action>
+        
+        
+        <action name="*Manager" class="Manager" method="{1}">
+            <result name="emp">goCharge.jsp</result>
+            <result name="repair">goRepair.jsp</result>
+        </action>
+
+    </package>
+    
+</struts>
